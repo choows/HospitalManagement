@@ -246,7 +246,7 @@ function Admin() {
                                         name="password"
                                         rules={[{ required: true, message: 'Please input your password!' }]}
                                     >
-                                        <Input value={NewPharmacist?.Password} onChange={(val) => { SetPharmacistVal("Password", val.target.value) }} />
+                                        <Input.Password value={NewPharmacist?.Password} onChange={(val) => { SetPharmacistVal("Password", val.target.value) }} />
 
                                     </Form.Item>
 
@@ -255,7 +255,7 @@ function Admin() {
                                         name="Confirmpassword"
                                         rules={[{ required: true, message: 'Re-enter Password' }]}
                                     >
-                                                                                <Input value={NewPharmacist?.ConfirmPassword} onChange={(val) => { SetPharmacistVal("ConfirmPassword", val.target.value) }} />
+                                                                                <Input.Password value={NewPharmacist?.ConfirmPassword} onChange={(val) => { SetPharmacistVal("ConfirmPassword", val.target.value) }} />
 
                                     </Form.Item>
 
