@@ -41,7 +41,7 @@ function Login() {
                 return;
             }
             if (val.role == "Admin") {
-                navigate('/');
+                navigate('/Admin');
                 return;
             }
         }).catch((exp) => {
