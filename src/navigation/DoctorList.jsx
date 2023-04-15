@@ -26,7 +26,7 @@ function DoctorList() {
 
     const GoToPatientDetail = (patient_id) => {
         console.log(patient_id);
-        navigate('/PatientDetails', { state: { id: patient_id} });
+        //navigate('/PatientDetails', { state: { id: patient_id} });
     }
 
     const DonePatient = (patient_id)=>{
@@ -53,7 +53,7 @@ function DoctorList() {
                                             <Button
                                                 type='link'
                                                 icon={<InfoCircleOutlined /> }
-                                                onClick={()=>{GoToPatientDetail(x?.ID)}}
+                                                onClick={()=>{GoToPatientDetail(x)}}
                                             />
                                         </>
                                     }>

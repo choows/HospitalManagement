@@ -14,7 +14,7 @@ function Admin() {
     const [doctorList, setDoctorList] = useState([]);
     const [pharmacistList, setPharmacistList] = useState([]);
     const [NewDoctor, setNewDoctor] = useState({});
-    const [NewPharmacist, setNewPharmacist] = useState({});
+    const [NewPharmacist , setNewPharmacist] = useState({});
 
     useEffect(() => {
         GetDoctorList();
@@ -28,11 +28,11 @@ function Admin() {
         })
     }
 
-    const GetPharmacistlist = () => {
-        FuncGetPharmacist().then((resp) => {
+    const GetPharmacistlist = ()=>{
+        FuncGetPharmacist().then((resp)=>{
             console.log(resp);
             setPharmacistList([...resp.pharmacistList]);
-        }).catch((exp) => {
+        }).catch((exp)=>{
             console.warn(exp);
         })
     }
@@ -41,9 +41,9 @@ function Admin() {
         setNewDoctor({ ...NewDoctor });
     }
 
-    const SetPharmacistVal = (obj, val) => {
+    const SetPharmacistVal = (obj , val)=>{
         NewPharmacist[obj] = val;
-        setNewPharmacist({ ...NewPharmacist });
+        setNewPharmacist({...NewPharmacist});
     }
 
     const OnModelFinished = () => {
@@ -77,7 +77,7 @@ function Admin() {
         })
     }
 
-    const RegisterNewPharmacist = () => {
+    const RegisterNewPharmacist=()=>{
         FuncCreateUser(NewPharmacist.UserName, NewPharmacist.Password, NewPharmacist.ConfirmPassword, NewPharmacist.Email).then((resp) => {
             if (resp.success && resp.userId) {
                 FuncRegisterPharmacist(resp.userId, NewPharmacist.FirstName, NewPharmacist.LastName,
@@ -117,33 +117,28 @@ function Admin() {
                 }
 
             </Row>
+
+
+            <Divider orientation="left">Pharmacist</Divider>
             {
-                user.Role != 'Patient' &&
-                <>
-
-                    <Divider orientation="left">Pharmacist</Divider>
-                    {
-                        user.Role == "Admin" &&
-                        <Row justify='start' align='top'>
-                            <Button type="primary" style={{ alignSelf: 'flex-start' }} onClick={() => { setShowModel('Pharmacist') }}>New</Button>
-                        </Row>
-                    }
-
-                    <Row justify='start' align='top' style={{ padding: 10 }} >
-                        {
-                            pharmacistList.map(x =>
-                                <Col xl={8} xs={16} xxl={8} key={x.id}>
-                                    <Card title={x.firstName + " " + x.lastName} extra={<Button type="link" icon={<InfoCircleOutlined />} onClick={() => { NavigateToPharmacy(x.id) }} />} style={{ width: 300, margin: 20 }}>
-                                        <p><b>Introduction</b></p>
-                                        <p>{x.introduction}</p>
-                                    </Card>
-                                </Col>
-                            )
-                        }
-                    </Row>
-                </>
+                user.Role == "Admin" &&
+                <Row justify='start' align='top'>
+                    <Button type="primary" style={{ alignSelf: 'flex-start' }} onClick={() => { setShowModel('Pharmacist') }}>New</Button>
+                </Row>
             }
 
+            <Row justify='start' align='top' style={{ padding: 10 }} >
+                {
+                    pharmacistList.map(x =>
+                        <Col xl={8} xs={16} xxl={8} key={x.id}>
+                            <Card title={x.firstName + " " + x.lastName} extra={<Button type="link" icon={<InfoCircleOutlined />} onClick={() => { NavigateToPharmacy(x.id) }} />} style={{ width: 300, margin: 20 }}>
+                                <p><b>Introduction</b></p>
+                                <p>{x.introduction}</p>
+                            </Card>
+                        </Col>
+                    )
+                }
+            </Row>
             <Modal title={"Register New " + showModel} open={showModel != ''} onOk={OnModelFinished} onCancel={() => { setShowModel('') }}>
                 <div>
                     <Row justify="center" align="middle">

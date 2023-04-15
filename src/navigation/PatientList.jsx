@@ -13,15 +13,15 @@ function PatientList() {
     const [type, setType] = useState('name');
     const [PatientList, setPatientList] = useState([]);
     useEffect(() => {
-        setValue('A');
-        Search();
+       // setValue('A');
+        Search('A');
     }, []);
     const onCurrencyChange = (newType) => {
         setType(newType);
     };
 
-    const Search = () => {
-        if (value == '') {
+    const Search = (val) => {
+        if (val == '') {
             window.alert("Value Required for Search");
             return;
         }
@@ -137,7 +137,7 @@ function PatientList() {
                     <Option value="name">Name</Option>
                     <Option value="nric">NRIC</Option>
                 </Select>
-                <Button type="primary" onClick={Search}>Search</Button>
+                <Button type="primary" onClick={()=>{Search(value)}}>Search</Button>
             </div>
             {PatientList.length > 0 &&
                 <div style={{ width: '100%', marginTop: '5%' }}>

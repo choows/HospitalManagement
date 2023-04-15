@@ -118,7 +118,36 @@ export const FuncGetPatientHistory=(PatientId = "")=>{
         })
     })
 }
+//PrescriptionIsCollected
 
+export const FuncPrescriptionIsCollected=(prescriptionId)=>{
+    const Url = BaseUrl + "Prescription/PrescriptionIsCollected";
+    return new Promise((resolve, reject)=>{
+        fetch(Url , {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(
+                {
+                    PrescriptionId : prescriptionId
+                }
+            )
+        }).then((resp)=>{
+            return resp.json();
+        }).then((resp)=>{
+            if(resp.success){
+                resolve(resp);
+            }else{
+                window.alert(resp.message);
+                reject(resp);
+            }
+        }).catch((exp)=>{
+            reject(exp);
+        })
+    })
+}
 export const FuncNewMedicine=(name = "" , dose = 0)=>{
     const Url = BaseUrl + "Prescription/NewMedicine";
     return new Promise((resolve, reject)=>{
