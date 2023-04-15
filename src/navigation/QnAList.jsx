@@ -13,7 +13,7 @@ const QnAList = () => {
 
     const [showModel, setShowModel] = useState('');
     const [NewQnAQuote, setNewQnAQuote] = useState({});
-    const [TalleSource , setTableSource] = useState([]);
+    const [TableSource , setTableSource] = useState([]);
     
     const dataSource = [
         {
@@ -54,11 +54,11 @@ const QnAList = () => {
 
     const RetreiveTableSource=()=>{
         FuncgetAllQna().then((resp)=>{
-            setTableSource(resp.qnAList);
+            console.log(resp);
+            setTableSource(resp.qnaList);
         });
     }
     const NewQnA=()=> {
-        console.log("New QnA");
         FuncNewQna(NewQnAQuote["Question"] , NewQnAQuote["Answer"]).then((resp)=>{
             if(resp.success){
                setShowModel(false); 
@@ -70,6 +70,7 @@ const QnAList = () => {
             console.warn(exp);
         });
     }
+
     const UpdateField=(field, value)=>{
         NewQnAQuote[field] = value;
         setNewQnAQuote(...NewQnAQuote);
@@ -77,8 +78,8 @@ const QnAList = () => {
     return (
         <div>
             <Title level={2}>QnA List</Title>
-            <Button type="primary" onClick={() => {setShowModel(true)}}>New QnA</Button>
-            <Table dataSource={dataSource} columns={columns} />
+            <Button type="primary" onClick={() => {setShowModel(true)}} style={{alignSelf:'flex-start'}}>New QnA</Button>
+            <Table dataSource={TableSource} columns={columns} />
             <Modal title={"New QnA"} open={showModel} onOk={NewQnA}>
                 <Input placeholder="Question" onChange={(val)=> {UpdateField('Question',val.target.value)}}/>
                 <Input placeholder="Answer" onChange={(val)=> {UpdateField('Answer',val.target.value)}}/>

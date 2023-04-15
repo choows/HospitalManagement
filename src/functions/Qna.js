@@ -29,6 +29,33 @@ export const FuncNewQna=(Question , Answer)=>{
     })
 }
 
+export const FuncGetAnswer=(Question)=>{
+    const Url = BaseUrl + "Qna/getAnswer";
+    return new Promise((resolve, reject)=>{
+        fetch(Url , {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({
+                Question : Question
+            })
+        }).then((resp)=>{
+            return resp.json();
+        }).then((resp)=>{
+            if(resp.success){
+                resolve(resp);
+            }else{
+                window.alert(resp.message);
+                reject(resp);
+            }
+        }).catch((exp)=>{
+            reject(exp);
+        })
+    })
+}
+
 
 export const FuncgetAllQna=()=>{
     const Url = BaseUrl + "QnA/getAllQna";

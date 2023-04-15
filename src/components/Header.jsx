@@ -5,6 +5,8 @@ import { useSelector, useDispatch, useStore } from 'react-redux'
 import { login, logout, userSlice } from '../redux/reducer/UserReducer';
 import React, {useEffect, useState} from "react";
 import {store} from '../redux/store';
+import ChatBox from './ChatBox';
+
 const { Content, Sider } = Layout;
 function NavigationHeader(param) {
     let navigate = useNavigate();
@@ -89,6 +91,10 @@ function NavigationHeader(param) {
     
     return (
         <Layout>
+            {
+                user.Role == 'Patient' && 
+                <ChatBox/>
+            }
             <Sider
                 breakpoint="lg"
                 collapsedWidth="0"
