@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { CloseOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { FuncCreateUser, FuncRegisterDoctor, FuncGetDoctor, FuncRegisterPharmacist, FuncGetPharmacist } from '../functions/Users';
 import { store } from '../redux/store';
+import { Widget, addResponseMessage } from 'react-chat-widget';
+import 'react-chat-widget/lib/styles.css';
 const { Title } = Typography;
 
 function Admin() {
@@ -92,8 +94,19 @@ function Admin() {
         })
     }
 
+    const handleNewUserMessage = (newMessage) => {
+        console.log(`New message incomig! ${newMessage}`);
+        // Now send the message throught the backend API
+        addResponseMessage('Response Here');
+    }
+
     return (
         <div style={{ width: '100%', height: '100%', padding: 20 }}>
+            <Widget 
+            title={"Q&A"}
+            subtitle={"Please ask your questions here."}
+            handleNewUserMessage={handleNewUserMessage} 
+            emojis={true}/>
             <Title level={3}>Administration</Title>
             <Divider orientation="left">Doctors</Divider>
             {

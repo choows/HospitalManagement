@@ -13,6 +13,7 @@ import NewPatient from './navigation/NewPatient';
 import Register from './navigation/Register';
 import PharmacistProfile from './navigation/PharmacistProfile';
 import AnnoymousAppointment from './navigation/AnnoymousAppointment';
+import QnAList from './navigation/QnAList';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path='NewPatient' element={<NavigationHeader Content={<NewPatient/>}/>}/>
               <Route path='PharmacistProfile' element={<NavigationHeader Content={<PharmacistProfile/>}/>}/>
               <Route path='AnnoymousAppointment' element={<AnnoymousAppointment/>}/>
+              <Route path='QnAList' element={<NavigationHeader Content={<QnAList/>}/>}/>
             </Routes>
           </div>
         </BrowserRouter>
