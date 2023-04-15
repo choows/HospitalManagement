@@ -183,7 +183,8 @@ export const UpdateDoctor = (profile)=>{
         })
     });
 }
-export const FuncRegisterPatient = (userId, firstName, lastName, nric, address, contactnum, tag, age, gender) => {
+
+export const FuncRegisterPatient = (userId, firstName, lastName, nric, address, contactnum, tag, age, gender, e_contact, e_name, e_relation) => {
     const Url = BaseUrl + "Users/RegisterPatient";
     return new Promise((resolve, reject) => {
         fetch(Url, {
@@ -202,7 +203,10 @@ export const FuncRegisterPatient = (userId, firstName, lastName, nric, address, 
                     ContactNum: contactnum,
                     Age: age,
                     Tag: tag,
-                    Gender: gender
+                    Gender: gender,
+                    EmergencyContactNum : e_contact,
+                    EmergencyContactName : e_name,
+                    EmergencyContactRelation : e_relation
                 }
             )
         }).then((resp) => {

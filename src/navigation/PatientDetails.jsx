@@ -108,8 +108,15 @@ function PatientDetails() {
                     Address: patient.address,
                     ContactNum: patient.contactNum,
                     Tag: patient.tag,
-                    Nric: patient.nric
+                    Nric: patient.nric,
+                    EmergencyContactNum: patient.emergencyContactNum,
+                    EmergencyContactName: patient.emergencyContactName,
+                    EmergencyContactRelation: patient.emergencyContactRelation
                 }
+                // EmergencyContactNum : e_contact,
+                //EmergencyContactName : e_name,
+                //EmergencyContactRelation : e_relation
+
                 setProfile({ ...profile });
                 setUpdateProfile({ ...profile });
             }
@@ -258,6 +265,11 @@ function PatientDetails() {
                             {Profile?.Address}
                         </Descriptions.Item>
                     </Descriptions>
+                    <Descriptions title="Emergency Contact">
+                        <Descriptions.Item label="Name">{Profile?.EmergencyContactName}</Descriptions.Item>
+                        <Descriptions.Item label="Contact">{Profile?.EmergencyContactNum}</Descriptions.Item>
+                        <Descriptions.Item label="Relationship">{Profile?.EmergencyContactRelation}</Descriptions.Item>
+                    </Descriptions>
                 </Col>
                 <Col xs={24} xl={12} sm={24} style={{ border: '1px solid grey', alignContent: 'center', padding: 10 }}>
                     <Descriptions title="Histories" extra={<Button type="primary" onClick={() => { setNewAppModal(true) }}>New Appointment</Button>}></Descriptions>
@@ -335,7 +347,12 @@ function PatientDetails() {
                     <Descriptions.Item label="Address" span={3}>
                         <Input.TextArea value={UpdateProfile?.Address} onChange={(val) => { UpdateSpecificColumn("Address", val.target.value) }} />
                     </Descriptions.Item>
+                    <Descriptions.Item label="Emergency Contact Name" span={3}><Input value={UpdateProfile?.EmergencyContactName} onChange={(val) => { UpdateSpecificColumn("EmergencyContactName", val.target.value) }} /></Descriptions.Item>
+                    <Descriptions.Item label="Emergency Contact Number" span={3}><Input value={UpdateProfile?.EmergencyContactNum} onChange={(val) => { UpdateSpecificColumn("EmergencyContactNum", val.target.value) }} /></Descriptions.Item>
+                    <Descriptions.Item label="Emergency Contact Relationship" span={3}><Input value={UpdateProfile?.emergencyContactRelation} onChange={(val) => { UpdateSpecificColumn("emergencyContactRelation", val.target.value) }} /></Descriptions.Item>
+
                 </Descriptions>
+                
             </Modal>
             <Modal
                 title="New Appointment"

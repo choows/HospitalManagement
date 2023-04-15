@@ -42,7 +42,8 @@ function NewPatient() {
         FuncCreateUser(Profile.UserName , Profile.Password, Profile.ConfirmPassword, Profile.Email).then((resp)=>{
             if(resp.success && resp.userId){
                 FuncRegisterPatient(resp.userId , Profile.FirstName , Profile.LastName,
-                     Profile.NRIC, Profile.Address, Profile.ContactNum, Profile.Tag, Profile.Age).then((resp)=>{
+                     Profile.NRIC, Profile.Address, Profile.ContactNum, Profile.Tag, Profile.Age,
+                      Profile.EmergencyContactNum, Profile.EmergencyContactName, Profile.EmergencyContactRelation).then((resp)=>{
                         window.alert("Patient Created");
                      });
             }
@@ -109,6 +110,17 @@ function NewPatient() {
                         </Descriptions.Item>
                         <Descriptions.Item label="Address" span={3}>
                             <Input.TextArea value={Profile?.Address} onChange={(val) => { UpdateSpecificColumn("Address", val.target.value) }} />
+                        </Descriptions.Item>
+                    </Descriptions>
+                    <Descriptions title="Emergency Contact">
+                        <Descriptions.Item label="Name" span={3}>
+                            <Input value={Profile?.EmergencyContactName} onChange={(val) => { UpdateSpecificColumn("EmergencyContactName", val.target.value) }} />
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Contact" span={3}>
+                            <Input value={Profile?.EmergencyContactNum} onChange={(val) => { UpdateSpecificColumn("EmergencyContactNum", val.target.value) }} />
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Relationship" span={3}>
+                            <Input value={Profile?.EmergencyContactRelation} onChange={(val) => { UpdateSpecificColumn("EmergencyContactRelation", val.target.value) }} />
                         </Descriptions.Item>
                     </Descriptions>
                 </Col>
