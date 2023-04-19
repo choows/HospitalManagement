@@ -214,32 +214,33 @@ function PatientDetails() {
                 console.warn(exp);
             })
     }
-    const UpdateAppointmentDetail=()=>{
+    const UpdateAppointmentDetail = () => {
         FuncUpdateAppointment(SelectedAppointment.id, SelectedAppointment.appointmentDateTime,
-            SelectedAppointment.remark, SelectedAppointment.status).then((resp)=>{
+            SelectedAppointment.remark, SelectedAppointment.status).then((resp) => {
                 window.alert(resp.message);
-             }).catch((exp)=>{
+            }).catch((exp) => {
                 console.warn(exp);
-             })
+            })
     }
-    const CancelAppointment=()=>{
+    const CancelAppointment = () => {
         UpdateAppStatus('Cancelled');
         UpdateAppointmentDetail();
     }
     const GetAppointmentButton = () => {
-        if(user.Role == 'Patient'){
+        if (user.Role == 'Patient') {
             return (
                 <>
                     <Button onClick={CancelAppointment} danger>Cancel Appointment</Button></>
             )
-        }else{
+        } else {
             return (
                 <>
                     <Button type="primary" onClick={UpdateAppointmentDetail}>Update Appointment Information</Button>
-                    <Button type="primary" onClick={() => { setNewPrescriptionModal(true) }}>Add Prescription</Button></>
+                    {/* <Button type="primary" onClick={() => { setNewPrescriptionModal(true) }}>Add Prescription</Button> */}
+                </>
             )
         }
-        
+
     }
     return (
         <div>
@@ -247,7 +248,7 @@ function PatientDetails() {
             <Divider></Divider>
             <Row>
                 <Col xs={24} xl={12} sm={24} style={{ border: '1px solid grey', alignContent: 'center', padding: 10 }}>
-                    <Descriptions title="Profile" extra={<Button type="primary" onClick={() => { setShowModal(true) }}>Update</Button>}>
+                    <Descriptions title="Profile" extra={ user.Role == 'Patient' && <Button type="primary" onClick={() => { setShowModal(true) }}>Update</Button>}>
                         <Descriptions.Item label="First Name">{Profile?.FirstName}</Descriptions.Item>
                         <Descriptions.Item label="Last Name">{Profile?.LastName}</Descriptions.Item>
                         <Descriptions.Item label="Contact">{Profile?.ContactNum}</Descriptions.Item>
@@ -272,7 +273,10 @@ function PatientDetails() {
                     </Descriptions>
                 </Col>
                 <Col xs={24} xl={12} sm={24} style={{ border: '1px solid grey', alignContent: 'center', padding: 10 }}>
-                    <Descriptions title="Histories" extra={<Button type="primary" onClick={() => { setNewAppModal(true) }}>New Appointment</Button>}></Descriptions>
+                    {
+                        user.Role != 'Pharmacist' && 
+                        <Descriptions title="Histories" extra={<Button type="primary" onClick={() => { setNewAppModal(true) }}>New Appointment</Button>}></Descriptions>
+                    }
                     <Timeline style={{ textAlign: 'start', alignSelf: 'center' }} mode={"left"}
                         items={GetAppointmentList()}
                     />
@@ -352,7 +356,7 @@ function PatientDetails() {
                     <Descriptions.Item label="Emergency Contact Relationship" span={3}><Input value={UpdateProfile?.emergencyContactRelation} onChange={(val) => { UpdateSpecificColumn("emergencyContactRelation", val.target.value) }} /></Descriptions.Item>
 
                 </Descriptions>
-                
+
             </Modal>
             <Modal
                 title="New Appointment"
