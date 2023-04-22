@@ -51,6 +51,8 @@ function NavigationHeader(param) {
                 list.push( getItem('Admin', '/Admin', <UserOutlined />, null, null));
                 list.push( getItem('New Patient', '/NewPatient', <UserOutlined />, null, null));
                 list.push( getItem('QnA List', '/QnAList', <UserOutlined />, null, null));
+                list.push( getItem('Medicines', '/MedicineManagement', <UserOutlined />, null, null));
+
                 break;
             }
             default : break;

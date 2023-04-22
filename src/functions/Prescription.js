@@ -177,8 +177,6 @@ export const FuncNewMedicine=(name = "" , dose = 0)=>{
         })
     })
 }
-
-
 export const FuncUpdateMedicine=(id = 0, name = "" , dose = 0)=>{
     const Url = BaseUrl + "Prescription/UpdateMedicine";
     return new Promise((resolve, reject)=>{
@@ -209,9 +207,6 @@ export const FuncUpdateMedicine=(id = 0, name = "" , dose = 0)=>{
         })
     })
 }
-
-
-
 export const FuncGetMedicines=()=>{
     const Url = BaseUrl + "Prescription/GetMedicines";
     return new Promise((resolve, reject)=>{
