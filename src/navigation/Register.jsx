@@ -47,7 +47,8 @@ function Register() {
         FuncCreateUser(Profile.UserName , Profile.Password, Profile.ConfirmPassword, Profile.Email).then((resp)=>{
             if(resp.success && resp.userId){
                 FuncRegisterPatient(resp.userId , Profile.FirstName , Profile.LastName,
-                     Profile.NRIC, Profile.Address, Profile.ContactNum, Profile.Tag, Profile.Age, Profile.Gender).then((resp)=>{
+                     Profile.NRIC, Profile.Address, Profile.ContactNum, Profile.Tag, Profile.Age, Profile.Gender,
+                      Profile.EmergencyContactNum, Profile.EmergencyContactName, Profile.emergencyContactRelation).then((resp)=>{
                         window.alert("Patient Created");
                      });
             }
@@ -125,6 +126,9 @@ function Register() {
                         <Descriptions.Item labelStyle={{width:'15%'}} label="Address" span={3}>
                             <Input.TextArea value={Profile?.Address} onChange={(val) => { UpdateSpecificColumn("Address", val.target.value) }} />
                         </Descriptions.Item>
+                        <Descriptions.Item label="Emergency Contact Name" labelStyle={{width:'15%'}} span={3}><Input value={Profile?.EmergencyContactName} onChange={(val) => { UpdateSpecificColumn("EmergencyContactName", val.target.value) }} /></Descriptions.Item>
+                    <Descriptions.Item label="Emergency Contact Number" labelStyle={{width:'15%'}} span={3}><Input value={Profile?.EmergencyContactNum} onChange={(val) => { UpdateSpecificColumn("EmergencyContactNum", val.target.value) }} /></Descriptions.Item>
+                    <Descriptions.Item label="Emergency Contact Relationship" labelStyle={{width:'15%'}} span={3}><Input value={Profile?.emergencyContactRelation} onChange={(val) => { UpdateSpecificColumn("emergencyContactRelation", val.target.value) }} /></Descriptions.Item>
                     </Descriptions>
                 </Col>
                 <Col xs={0} xl={4} sm={0}></Col>
