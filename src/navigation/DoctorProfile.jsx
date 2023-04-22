@@ -56,11 +56,15 @@ function DoctorProfile() {
             </div>
             <Descriptions bordered style={{ marginTop: '3%' }} extra={
 
-                user.Role != 'Patient' &&
+                user.Role == 'Admin' &&
                 <>
                     <Button type={'primary'} style={{ margin: 10 }} onClick={() => { setIsUpdating(!isUpdating) }}>{isUpdating ? "Cancel" : "Edit Profile"}</Button>
                     {isUpdating && <Button type={'primary'} style={{ margin: 10 }} onClick={() => { SaveProfile()}}>Save</Button>}
-                    <Button type="primary" onClick={() => { ViewAppointment(profile.id) }} style={{ margin: 10 }}>View Appointments</Button>
+                    {
+                        user.Role != 'Patient' && 
+                    
+                        <Button type="primary" onClick={() => { ViewAppointment(profile.id) }} style={{ margin: 10 }}>View Appointments</Button>
+                    }
                 </>
 
             }>

@@ -59,7 +59,9 @@ export const FuncNewAppointment=(AppointmentDateTime = "", isPatient = true, Pat
             if(resp.success){
                 resolve(resp);
             }else{
-                window.alert(resp.message);
+                if(resp.message){
+                    window.alert(resp.message);
+                }
                 reject(resp);
             }
         }).catch((exp)=>{
@@ -121,6 +123,8 @@ export const FuncUpdateAppointment=(AppointId = "", AppointmentDateTime = null, 
                 reject(resp);
             }
         }).catch((exp)=>{
+            console.log("Failed");
+            console.log(exp);
             reject(exp);
         })
     })

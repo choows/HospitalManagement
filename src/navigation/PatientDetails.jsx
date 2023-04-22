@@ -164,11 +164,13 @@ function PatientDetails() {
     const MakeNewApp = () => {
         var dateTimeReformatting = NewAppVal.AppDate + "T" + NewAppVal.AppTime;
         FuncNewAppointment(dateTimeReformatting, true, Profile.Id, NewAppVal.DoctorID, NewAppVal.Remark).then((resp) => {
-            window.alert(resp.message);
+            if(resp.message){
+                window.alert(resp.message);
+            }
             GetAppointmentDetails(Profile.Id);
             setNewAppModal(false);
         }).catch((exp) => {
-            console.warn(exp);
+            window.alert(exp.title);
         })
     }
 
@@ -217,6 +219,7 @@ function PatientDetails() {
     const UpdateAppointmentDetail = () => {
         FuncUpdateAppointment(SelectedAppointment.id, SelectedAppointment.appointmentDateTime,
             SelectedAppointment.remark, SelectedAppointment.status).then((resp) => {
+                console.log(resp);
                 window.alert(resp.message);
             }).catch((exp) => {
                 console.warn(exp);
@@ -236,7 +239,7 @@ function PatientDetails() {
             return (
                 <>
                     <Button type="primary" onClick={UpdateAppointmentDetail}>Update Appointment Information</Button>
-                    {/* <Button type="primary" onClick={() => { setNewPrescriptionModal(true) }}>Add Prescription</Button> */}
+                    <Button type="primary" onClick={() => { setNewPrescriptionModal(true) }}>Add Prescription</Button>
                 </>
             )
         }
@@ -368,10 +371,10 @@ function PatientDetails() {
             >
                 <Descriptions>
                     <Descriptions.Item label="Date" span={3}>
-                        <DatePicker onChange={onDateChange} />
+                        <DatePicker onChange={onDateChange} disabledDate={d => !d || d.isBefore(new Date())}/>
                     </Descriptions.Item>
                     <Descriptions.Item label="Time" span={3}>
-                        <TimePicker onChange={onTimeChange} defaultValue={dayjs('00:00:00', 'HH:mm:ss')} />
+                        <TimePicker onChange={onTimeChange} showSecond={false} showMinute={false}/>
 
                     </Descriptions.Item>
                     <Descriptions.Item label="Doctor" span={3}>
