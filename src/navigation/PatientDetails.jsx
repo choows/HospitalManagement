@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, TimePicker, Form, Input, Typography, Divider, Timeline, Row, Col, Descriptions, Tag, Modal, Select, DatePicker } from 'antd';
+import { Button, TimePicker, Form, Input, Typography, Divider, Timeline,List, Row, Col, Descriptions, Tag, Modal, Select, DatePicker } from 'antd';
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout } from '../redux/reducer/UserReducer';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { GetTagWording, GenerateAgeSelect } from '../functions/CommonFunc';
 import { FuncGetPatient, FuncUpdatePatient, FuncGetDoctor } from '../functions/Users';
 import { FuncGetAppointmentList, FuncNewAppointment, FuncUpdateAppointment } from '../functions/Appointment';
-import { FuncGetMedicines, FuncAddNewPrescription } from '../functions/Prescription';
+import { FuncGetMedicines, FuncAddNewPrescription, FuncGetPrescriptionsByAppointment } from '../functions/Prescription';
 import { store } from '../redux/store';
 
 const { Title, Text } = Typography;
@@ -45,6 +45,7 @@ function PatientDetails() {
     const [DoctorList, setDoctorList] = useState([]);
     const [AppointmentList, setAppointmentList] = useState([]);
     const [MedicineList, setMedicineList] = useState([]);
+    const [SelectedPrescription , setSelectedPrescription] = useState([]);
     const [NewAppVal, setNewAppVal] = useState({
         AppDate: '',
         AppTime: '',
@@ -125,6 +126,15 @@ function PatientDetails() {
 
     const ViewAppointment = (appointment_id) => {
         setSelectedAppointment(AppointmentList.find(x => x.id === appointment_id));
+        FuncGetPrescriptionsByAppointment(appointment_id).then((resp) => {
+            console.log(resp);
+            setSelectedPrescription(resp.details);
+            console.log("details");
+            console.log(resp.details);
+        }).catch((exp) => {
+            console.warn(exp);
+        });
+
     }
 
     const GetAppointmentList = () => {
@@ -315,6 +325,23 @@ function PatientDetails() {
                         <Descriptions.Item label="Remark">
                             <Input.TextArea value={SelectedAppointment?.remark} onChange={(val) => { UpdateAppRemark(val.target.value) }} />
                         </Descriptions.Item>
+                        {
+                            SelectedPrescription.length > 0 && 
+                            <Descriptions.Item label="Prescription">
+                                <List
+                                dataSource={SelectedPrescription[0].medicine}
+                                renderItem={(item) => (
+                                    <List.Item>
+                                      {item.name} ({item.dose} mg)
+                                    </List.Item>
+                                  )}
+                                >
+                                    
+                                </List>
+                               
+                                
+                            </Descriptions.Item>
+                        }
                     </Descriptions>
                 </Row>
             }
