@@ -129,3 +129,26 @@ export const FuncUpdateAppointment=(AppointId = "", AppointmentDateTime = null, 
         })
     })
 }
+
+//GetNonPatientAppointment
+
+export const FuncGetNonPatientAppointment=(AppointmentId = "")=>{
+    var Url = BaseUrl + "Appointment/GetNonPatientAppointment";
+    if(AppointmentId != ""){
+        Url += "?AppointmentId=" + AppointmentId
+    }
+    return new Promise((resolve, reject)=>{
+        fetch(Url).then((resp)=>{
+            return resp.json();
+        }).then((resp)=>{
+            if(resp.success){
+                resolve(resp);
+            }else{
+                window.alert(resp.message);
+                reject(resp);
+            }
+        }).catch((exp)=>{
+            reject(exp);
+        })
+    })
+}

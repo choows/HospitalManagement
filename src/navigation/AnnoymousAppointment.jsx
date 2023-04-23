@@ -62,12 +62,16 @@ function AnnoymousAppointment() {
    return (
     <div>
         <Title level={3}>Make Appointment</Title>
-        <Descriptions>
+        <Row>
+        <Col span={4}>
+            </Col>
+            <Col span={16} style={{alignContent:'center'}}>
+            <Descriptions style={{width: '80%' , alignSelf:'center'}}>
                     <Descriptions.Item label="Date" span={3}>
-                        <DatePicker onChange={onDateChange} />
+                        <DatePicker onChange={onDateChange}  disabledDate={d => !d || d.isBefore(new Date())}/>
                     </Descriptions.Item>
                     <Descriptions.Item label="Time" span={3}>
-                        <TimePicker onChange={onTimeChange} defaultValue={dayjs('00:00:00', 'HH:mm:ss')} />
+                        <TimePicker onChange={onTimeChange} showSecond={false} showMinute={false}/>
                     </Descriptions.Item>
                     <Descriptions.Item label="Doctor" span={3}>
                         <Select
@@ -94,6 +98,10 @@ function AnnoymousAppointment() {
                     </Descriptions.Item>
                 </Descriptions>
                 <Button type="primary" onClick={() => { MakeApp()}}>Submit</Button>
+                </Col>
+                <Col span={4}>
+            </Col>
+        </Row>
     </div>
    );
 }

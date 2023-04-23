@@ -33,6 +33,7 @@ function NavigationHeader(param) {
             case 'Pharmacist':{
                 list.push(getItem('Search Patient', '/PatientList', <UserOutlined />, null, null));
                 list.push(getItem('Prescription List', '/PharmacistList', <UserOutlined />, null, null));
+                list.push( getItem('Medicines', '/MedicineManagement', <UserOutlined />, null, null));
                 break;
             }
             case 'Doctor':{

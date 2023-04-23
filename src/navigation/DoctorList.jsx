@@ -45,11 +45,16 @@ function DoctorList() {
             render:(_, record)=>(
                 <>
                     <Button type="primary" onClick={()=>{DonePatient(record.id)}}>Attended</Button>
-                    <Button type="default" onClick={()=>{GoToPatientDetail(record.patient?.id)}}>Patient Detail</Button>
+                    <Button type="default" onClick={()=>{record.isPatient ? GoToPatientDetail(record.patient?.id ) : GoToNonPatient(record.id)}}>Patient Detail</Button>
                 </>
             )
         }
     ];
+    const GoToNonPatient = (app_id)=>{
+        console.log("Appointment ID");
+        console.log(app_id);
+        navigate('/NonPatientDetails', { state: { id: app_id} });
+    }
     const GoToPatientDetail = (patient_id) => {
         console.log(patient_id);
         navigate('/PatientDetails', { state: { id: patient_id} });

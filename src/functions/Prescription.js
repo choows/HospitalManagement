@@ -126,6 +126,39 @@ export const FuncAddNewPrescription=(PatientId, DoctorId, Description, Appointme
     })
 }
 
+
+export const FuncAddNewNonPatientPrescription=(DoctorId, Description, AppointmentId, newPrescriptionModels)=>{
+    const Url = BaseUrl + "Prescription/AddNewNonPatientPrescription";
+    return new Promise((resolve, reject)=>{
+        fetch(Url , {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(
+                {
+                    DoctorId : DoctorId,
+                    Description : Description,
+                    AppointmentId : AppointmentId,
+                    newPrescriptionModels: newPrescriptionModels
+                }
+            )
+        }).then((resp)=>{
+            return resp.json();
+        }).then((resp)=>{
+            if(resp.success){
+                resolve(resp);
+            }else{
+                window.alert(resp.message);
+                reject(resp);
+            }
+        }).catch((exp)=>{
+            reject(exp);
+        })
+    })
+}
+
 export const FuncGetPatientHistory=(PatientId = "")=>{
     const Url = BaseUrl + "Prescription/GetPatientHistory";
     if(PatientId != ""){
