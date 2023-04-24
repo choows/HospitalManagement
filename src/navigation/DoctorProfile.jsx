@@ -7,6 +7,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { FuncGetDoctor, UpdateDoctor } from '../functions/Users';
 import { store } from '../redux/store';
+import { isRejected } from "@reduxjs/toolkit";
 
 const { Title, Text } = Typography;
 
@@ -56,7 +57,7 @@ function DoctorProfile() {
             </div>
             <Descriptions bordered style={{ marginTop: '3%' }} extra={
 
-                user.Role == 'Admin' &&
+                (user.Role == 'Admin' || user.Role == 'Doctor') &&
                 <>
                     <Button type={'primary'} style={{ margin: 10 }} onClick={() => { setIsUpdating(!isUpdating) }}>{isUpdating ? "Cancel" : "Edit Profile"}</Button>
                     {isUpdating && <Button type={'primary'} style={{ margin: 10 }} onClick={() => { SaveProfile()}}>Save</Button>}
@@ -70,7 +71,7 @@ function DoctorProfile() {
             }>
                 <Descriptions.Item label="First Name">
                     {
-                        isUpdating ?
+                        isUpdating && user.Role == 'Admin' ?
                             <Input value={profile?.firstName} onChange={(e) => { setProfile({ ...profile, firstName: e.target.value }) }}></Input>
                             :
                             profile?.firstName
@@ -78,7 +79,7 @@ function DoctorProfile() {
                 </Descriptions.Item>
                 <Descriptions.Item label="Last Name">
                     {
-                        isUpdating ?
+                        isUpdating && user.Role == 'Admin'?
                             <Input value={profile?.lastName} onChange={(e) => { setProfile({ ...profile, lastName: e.target.value }) }}></Input>
                             :
                             profile?.lastName
@@ -86,7 +87,7 @@ function DoctorProfile() {
                 </Descriptions.Item>
                 <Descriptions.Item label="Profession">
                     {
-                        isUpdating ?
+                        isUpdating && user.Role == 'Admin'?
                             <Input value={profile?.profession} onChange={(e) => { setProfile({ ...profile, profession: e.target.value }) }}></Input>
                             :
                             profile?.profession
@@ -110,7 +111,7 @@ function DoctorProfile() {
                     }</Descriptions.Item>
                 <Descriptions.Item label="Date of Join">{profile?.createDateTime?.split("T")[0]}</Descriptions.Item>
                 <Descriptions.Item label="Introduction" span={3}>{
-                    isUpdating ?
+                    isUpdating && user.Role == 'Admin'?
                         <Input.TextArea value={profile?.introduction} onChange={(e) => { setProfile({ ...profile, introduction: e.target.value }) }}></Input.TextArea>
                         :
                         profile?.introduction
